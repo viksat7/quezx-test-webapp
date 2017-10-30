@@ -1,0 +1,72 @@
+<div class="headerSection">
+ <h1>Logo</h1>
+</div>
+<div class="container">
+ <div class="row">
+  <div class="col-md-12">
+   <div class="searchSection">
+    <div class="input-group">
+     <input type="text" id="txt_skill_search" class="form-control" placeholder="Search" aria-describedby="basic-addon1" ng-model="searchskillname">
+     <span class="input-group-addon glyphicon glyphicon-search" ng-click="findSkill()"></span>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="row mt-20">
+  <div class="col-md-12">
+   <div class="addSection">
+    <div class="row">
+     <div class="col-md-10 addlabel">Name</div>
+     <div class="col-md-2 text-right"> <button type="button" class="btn btn-success" ng-click="showAdd = true">Add</button></div>
+    </div>
+    <div class="addInput" ng-show="showAdd">
+     <div class="input-group">
+      <input type="text" id="txt_new_skill" class="form-control" placeholder="Add Skill" aria-describedby="basic-addon1" ng-model="addSkills.skillname">
+      <span class="bg-success" ng-click="addSkill()">Submit</span>
+     </div>
+     <div style="line-height: 3.4rem;" ng-click="changeNewSkillStatus('approve');addSkills.status = true">
+      <!-- <button type="button" name="button" ng-click="addSkills.status = true"> -->
+      <span class="glyphicon glyphicon-ok" ng-class="{'text-green': addSkills.status}"></span>
+      <span ng-class="{'text-green': addSkills.status}">Approve</span>
+      <!-- </button> -->
+     </div>
+    </div>
+   </div>
+  </div>
+ </div>
+
+ <div class="row mt-20">
+  <div class="col-md-12">
+   <div class="tableSection">
+    <table class="table">
+     <tr ng-repeat="list in skillList | orderBy : 'skillname'">
+      <!-- <td>{{list.name}}</td> -->
+      <td>
+       <div ng-show="openEdit">
+        <div class="addSection">
+         <div class="addInput">
+          <div class="input-group">
+           <input type="text" class="form-control" placeholder="Add Skill" aria-describedby="basic-addon1" ng-model="list.skillname">
+           <span class="bg-success" id="basic-addon1" ng-click="changeSkill(list)">Submit</span>
+          </div>
+         </div>
+        </div>
+       </div>
+       <div ng-mouseover="open = true" ng-mouseleave="open = false" ng-show="!openEdit">
+        <span>{{list.skillname}} </span>
+        <span class="glyphicon glyphicon-pencil" ng-show="open" ng-click="openEdit = true"></span>
+       </div>
+      </td>
+      <td class="text-right col-md-3" ng-class="{'text-green': list.status == 'approve'}" ng-click="changeStatus(list.skillid,'approve'); list.status = true">
+       <span class="glyphicon glyphicon-ok"></span> Approve
+      </td>
+      <td class="text-right col-md-3" ng-class="{'text-danger': list.status != 'approve'}" ng-click="changeStatus(list.skillid,'reject');list.status = false">
+       <span class="glyphicon glyphicon-remove"></span> Reject
+      </td>
+     </tr>
+    </table>
+   </div>
+  </div>
+ </div>
+</div>
